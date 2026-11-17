@@ -13,20 +13,48 @@ page.on('console', message => {
 page.on('pageerror', error => errors.push(error.message))
 
 await page.goto('http://127.0.0.1:5173/', { waitUntil: 'networkidle' })
-await page.waitForTimeout(1400)
+await page.waitForTimeout(1600)
 await page.screenshot({ path: 'docs/screenshots/final-1440.png', fullPage: true })
 
 await page.setViewportSize({ width: 1280, height: 800 })
-await page.waitForTimeout(500)
+await page.waitForTimeout(700)
 await page.screenshot({ path: 'docs/screenshots/final-1280.png', fullPage: true })
 await page.setViewportSize({ width: 1440, height: 900 })
-await page.waitForTimeout(400)
+await page.waitForTimeout(500)
 
 await page.locator('[data-tab="design"]').click()
 await page.waitForTimeout(600)
 await page.screenshot({ path: 'docs/screenshots/final-design.png', fullPage: true })
-
 await page.locator('[data-tab="structure"]').click()
+
+// One-column 2D focus
+await page.getByRole('button', { name: '切换属性面板' }).click()
+await page.getByRole('button', { name: '切换 3D 视图' }).click()
+await page.waitForTimeout(700)
+await page.getByRole('button', { name: '适配画布' }).click()
+await page.waitForTimeout(400)
+await page.screenshot({ path: 'docs/screenshots/final-2d-only.png', fullPage: true })
+for (let i = 0; i < 10; i += 1) await page.getByRole('button', { name: '放大' }).click()
+await page.waitForTimeout(400)
+await page.locator('.net-viewport').screenshot({ path: 'docs/screenshots/final-2d-zoom.png' })
+await page.getByRole('button', { name: '适配画布' }).click()
+
+// One-column 3D focus
+await page.getByRole('button', { name: '切换 3D 视图' }).click()
+await page.getByRole('button', { name: '切换展开图视图' }).click()
+await page.waitForTimeout(800)
+await page.screenshot({ path: 'docs/screenshots/final-3d-only.png', fullPage: true })
+
+// Two-column stage + properties
+await page.getByRole('button', { name: '切换属性面板' }).click()
+await page.waitForTimeout(700)
+await page.screenshot({ path: 'docs/screenshots/final-2col.png', fullPage: true })
+
+// Back to all three
+await page.getByRole('button', { name: '切换展开图视图' }).click()
+await page.waitForTimeout(700)
+
+// Mailer
 await page.getByRole('button', { name: /飞机盒/ }).first().click()
 await page.waitForTimeout(900)
 await page.locator('.structure-slider input').first().evaluate(element => {
@@ -36,6 +64,7 @@ await page.locator('.structure-slider input').first().evaluate(element => {
 await page.waitForTimeout(800)
 await page.screenshot({ path: 'docs/screenshots/final-mailer.png', fullPage: true })
 
+// Lid & base
 await page.getByRole('button', { name: /天地盖/ }).first().click()
 await page.waitForTimeout(1000)
 await page.screenshot({ path: 'docs/screenshots/final-lidbase.png', fullPage: true })
@@ -67,5 +96,10 @@ const json = await download('paperform-sample-project.json', () => page.getByRol
 for (const file of [pdf, png, svg, json]) {
   console.log(file, fs.statSync(file).size)
 }
+
+await page.setViewportSize({ width: 900, height: 760 })
+await page.waitForTimeout(700)
+await page.screenshot({ path: 'docs/screenshots/final-compact.png', fullPage: true })
+
 console.log('CONSOLE ERRORS', errors)
 await browser.close()

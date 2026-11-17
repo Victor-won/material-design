@@ -76,7 +76,7 @@ function emitHex(event: Event) {
 
 .swatch-check {
   color: rgba(255, 255, 255, 0.78);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 300;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   pointer-events: none;
@@ -90,7 +90,7 @@ function emitHex(event: Event) {
   border-radius: 7px;
   background: rgba(255, 255, 255, 0.5);
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.04em;
 }
 

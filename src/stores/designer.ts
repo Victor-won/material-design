@@ -62,8 +62,9 @@ export const useDesignerStore = defineStore('designer', () => {
     selectedLayerId: null,
     showBleed: true,
     showAnnotations: true,
-    leftOpen: false,
-    rightOpen: false,
+    showNet: true,
+    showStage: true,
+    showProperties: true,
     exporting: false,
     lidOpen: 12,
     lidLift: 22,
@@ -170,6 +171,52 @@ export const useDesignerStore = defineStore('designer', () => {
 
   function setTab(tab: PropertyTab) {
     ui.activeTab = tab
+  }
+
+  type ViewKey = 'net' | 'stage' | 'properties'
+
+  function visibleViewCount(): number {
+    return Number(ui.showNet) + Number(ui.showStage) + Number(ui.showProperties)
+  }
+
+  function viewIsVisible(view: ViewKey): boolean {
+    if (view === 'net') return ui.showNet
+    if (view === 'stage') return ui.showStage
+    return ui.showProperties
+  }
+
+  function setViewVisibility(view: ViewKey, visible: boolean) {
+    if (view === 'net') ui.showNet = visible
+    else if (view === 'stage') ui.showStage = visible
+    else ui.showProperties = visible
+  }
+
+  function focusView(view: ViewKey) {
+    ui.showNet = view === 'net'
+    ui.showStage = view === 'stage'
+    ui.showProperties = view === 'properties'
+  }
+
+  function toggleView(view: ViewKey) {
+    const compact = typeof window !== 'undefined' && window.innerWidth < 1024
+    if (compact) {
+      if (viewIsVisible(view)) return
+      focusView(view)
+      return
+    }
+    if (viewIsVisible(view) && visibleViewCount() === 1) {
+      addToast('info', '至少保留一个工作视图')
+      return
+    }
+    setViewVisibility(view, !viewIsVisible(view))
+  }
+
+  function showPropertiesPanel() {
+    if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+      focusView('properties')
+    } else {
+      ui.showProperties = true
+    }
   }
 
   function selectFace(faceId: FaceId) {
@@ -470,6 +517,10 @@ export const useDesignerStore = defineStore('designer', () => {
     init,
     commit,
     setTab,
+    toggleView,
+    focusView,
+    showPropertiesPanel,
+    visibleViewCount,
     selectFace,
     selectGlobal,
     setScope,

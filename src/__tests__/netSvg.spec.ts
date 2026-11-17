@@ -38,6 +38,8 @@ describe('net svg serializer', () => {
       showAnnotations: true,
     })
     expect(svg.startsWith('<svg')).toBe(true)
+    expect(svg).toContain('data-net-width=')
+    expect(svg).toContain('data-net-height=')
     expect(svg).toContain('data-face="front"')
     expect(svg).toContain('data-fold="true"')
     expect(svg).toContain('stroke-dasharray')

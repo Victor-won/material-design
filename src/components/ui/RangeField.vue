@@ -82,7 +82,7 @@ function emitValue(raw: string | number) {
   justify-content: space-between;
   margin-bottom: 4px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 640;
   letter-spacing: 0.03em;
 }
@@ -101,7 +101,7 @@ function emitValue(raw: string | number) {
   background: transparent;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 520;
   text-align: right;
   -moz-appearance: textfield;
@@ -120,6 +120,6 @@ function emitValue(raw: string | number) {
 .range-value small {
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
 }
 </style>

@@ -22,8 +22,8 @@
   --font-ui: 'Manrope Variable', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   --font-display: 'Newsreader Variable', 'Songti SC', Georgia, serif;
   --font-mono: 'SFMono-Regular', Menlo, Consolas, monospace;
-  --left: 400px;
-  --right: 388px;
+  --left: 420px;
+  --right: 405px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 18px;
@@ -35,14 +35,14 @@
 
 @media (max-width: 1439px) {
   :root {
-    --left: 356px;
-    --right: 362px;
+    --left: 370px;
+    --right: 385px;
   }
 }
 
 @media (max-width: 1180px) {
   :root {
-    --right: 350px;
-    --left: 340px;
+    --right: 360px;
+    --left: 330px;
   }
 }

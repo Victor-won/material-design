@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { nextTick, ref, watch } from 'vue'
-import { Box, Download, Sparkles, X } from '@lucide/vue'
+import { Box, Download, Sparkles } from '@lucide/vue'
 import { useDesignerStore } from '@/stores/designer'
 import StructurePanel from './property/StructurePanel.vue'
 import DesignPanel from './property/DesignPanel.vue'
@@ -31,13 +31,6 @@ const tabs = [
     <header class="property-head">
       <div class="property-topline">
         <span class="eyebrow">02 / Properties</span>
-        <button
-          class="close-property"
-          aria-label="关闭属性面板"
-          @click="store.ui.rightOpen = false"
-        >
-          <X :size="15" />
-        </button>
       </div>
       <div class="property-title-row">
         <h1 class="display-title">设计属性</h1>
@@ -103,16 +96,6 @@ const tabs = [
   justify-content: space-between;
 }
 
-.close-property {
-  display: none;
-  width: 28px;
-  height: 28px;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  color: var(--muted);
-}
-
 .property-title-row {
   display: flex;
   align-items: center;
@@ -122,7 +105,7 @@ const tabs = [
 }
 
 .display-title {
-  font-size: 29px;
+  font-size: 31px;
 }
 
 .scope-chip {
@@ -134,7 +117,7 @@ const tabs = [
   border-radius: 999px;
   background: var(--accent-soft);
   color: var(--accent-deep);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 660;
   white-space: nowrap;
 }
@@ -178,7 +161,7 @@ const tabs = [
   justify-content: center;
   gap: 5px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 650;
   letter-spacing: 0.02em;
   transition: color 160ms ease;
@@ -230,13 +213,7 @@ const tabs = [
   border-top: 1px solid var(--line);
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 9px;
   letter-spacing: 0.08em;
-}
-
-@media (max-width: 1023px) {
-  .close-property {
-    display: grid;
-  }
 }
 </style>

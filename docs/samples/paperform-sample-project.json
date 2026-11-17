@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "project-72543522-bfd8-47e0-88da-5b4ceae930dc",
+  "id": "project-78c7e8f7-555e-425c-bd63-aac284a76242",
   "name": "未命名纸盒 01",
   "boxType": "tuck",
   "dimensions": {
@@ -23,7 +23,7 @@
     "image": null,
     "layers": [
       {
-        "id": "text-d155da5c-2b91-4b4f-8f78-0b10fe52fe2a",
+        "id": "text-9a272689-883d-43c0-bf7d-10c0fb8dffaa",
         "type": "text",
         "name": "品牌字标",
         "visible": true,
@@ -41,7 +41,7 @@
         "align": "center"
       },
       {
-        "id": "text-14c237b0-87f0-40a0-8592-b8540de0285c",
+        "id": "text-17bd614f-f2b6-49fa-b17a-f7bccc8fa8eb",
         "type": "text",
         "name": "辅助信息",
         "visible": true,
@@ -59,7 +59,7 @@
         "align": "center"
       },
       {
-        "id": "text-565c53c2-270a-4e1c-8ce0-66c0437c9e8e",
+        "id": "text-54038165-c9b3-4f62-8d87-523171d7926a",
         "type": "text",
         "name": "装饰字标",
         "visible": true,
@@ -79,6 +79,6 @@
     ]
   },
   "faces": {},
-  "createdAt": "2026-11-17T02:15:58.460Z",
-  "updatedAt": "2026-11-17T02:16:13.253Z"
+  "createdAt": "2026-11-17T02:42:14.085Z",
+  "updatedAt": "2026-11-17T02:42:35.282Z"
 }

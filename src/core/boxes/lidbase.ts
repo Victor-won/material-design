@@ -27,7 +27,6 @@ function buildCross(
   innerH: number,
   wallH: number,
   faces: CrossFaces,
-  sectionLabel: string,
 ): CrossResult {
   const panels: NetPanel[] = [
     rectPanel(
@@ -99,11 +98,10 @@ function buildCross(
   ]
 
   const labels = [
-    label(originX + innerW / 2, originY + innerH / 2, sectionLabel, 5),
-    label(originX + innerW / 2, originY - wallH / 2, 'BACK', 4, true),
-    label(originX + innerW / 2, originY + innerH + wallH / 2, 'FRONT', 4),
-    label(originX - wallH / 2, originY + innerH / 2, 'LEFT', 4, true),
-    label(originX + innerW + wallH / 2, originY + innerH / 2, 'RIGHT', 4, true),
+    label(originX + innerW / 2, originY - wallH + 8, 'BACK', 3.7, true),
+    label(originX + innerW / 2, originY + innerH + 8, 'FRONT', 3.7),
+    label(originX - wallH / 2, originY + 9, 'LEFT', 3.4, true),
+    label(originX + innerW + wallH / 2, originY + 9, 'RIGHT', 3.4, true),
   ]
 
   return {
@@ -138,7 +136,6 @@ export function buildLidbaseBox(ctx: BuildContext): NetBuildResult {
       left: 'left',
       right: 'right',
     },
-    'BASE',
   )
 
   const lidOriginX = 24 + baseCross.width + 64 + lidHeight
@@ -157,7 +154,6 @@ export function buildLidbaseBox(ctx: BuildContext): NetBuildResult {
       left: 'lidLeft',
       right: 'lidRight',
     },
-    'LID',
   )
 
   const panels = [...baseCross.panels, ...lidCross.panels]

@@ -127,8 +127,9 @@ export interface UIState {
   selectedLayerId: string | null
   showBleed: boolean
   showAnnotations: boolean
-  leftOpen: boolean
-  rightOpen: boolean
+  showNet: boolean
+  showStage: boolean
+  showProperties: boolean
   exporting: boolean
   lidOpen: number
   lidLift: number

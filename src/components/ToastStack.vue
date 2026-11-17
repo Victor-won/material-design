@@ -44,7 +44,7 @@ const store = useDesignerStore()
   background: rgba(23, 23, 20, 0.94);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.25);
   color: var(--white);
-  font-size: 11px;
+  font-size: 12.5px;
   line-height: 1.45;
   text-align: left;
   backdrop-filter: blur(10px);

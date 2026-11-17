@@ -235,7 +235,7 @@ function setPreset(dims: readonly [number, number, number]) {
 }
 
 .box-card-copy strong {
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 700;
 }
 
@@ -243,7 +243,7 @@ function setPreset(dims: readonly [number, number, number]) {
   margin-top: 2px;
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
@@ -263,7 +263,7 @@ function setPreset(dims: readonly [number, number, number]) {
   margin: 9px 0 0;
   padding-left: 2px;
   color: var(--muted-2);
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .dimension-readout {
@@ -282,12 +282,12 @@ function setPreset(dims: readonly [number, number, number]) {
 .dimension-readout span {
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
 }
 
 .dimension-readout strong {
   font-family: var(--font-display);
-  font-size: 21px;
+  font-size: 22px;
   font-weight: 450;
   letter-spacing: -0.03em;
 }
@@ -296,7 +296,7 @@ function setPreset(dims: readonly [number, number, number]) {
   margin: 0 2px;
   color: var(--line-strong);
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 13.5px;
   font-style: normal;
 }
 
@@ -304,7 +304,7 @@ function setPreset(dims: readonly [number, number, number]) {
   margin-left: auto;
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
 }
 
 .range-stack {
@@ -323,7 +323,7 @@ function setPreset(dims: readonly [number, number, number]) {
   margin-right: auto;
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
   letter-spacing: 0.06em;
 }
 
@@ -334,7 +334,7 @@ function setPreset(dims: readonly [number, number, number]) {
   border-radius: 5px;
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
   transition:
     border-color 140ms ease,
     color 140ms ease,
@@ -432,7 +432,7 @@ function setPreset(dims: readonly [number, number, number]) {
 
 .material-copy strong {
   overflow: hidden;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 680;
   line-height: 1.35;
   text-overflow: ellipsis;
@@ -443,7 +443,7 @@ function setPreset(dims: readonly [number, number, number]) {
   margin-top: 1px;
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 9px;
   text-transform: uppercase;
 }
 
@@ -461,7 +461,7 @@ function setPreset(dims: readonly [number, number, number]) {
 
 .inline-label {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 640;
 }
 
@@ -472,6 +472,6 @@ function setPreset(dims: readonly [number, number, number]) {
   margin-top: 13px;
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
 }
 </style>

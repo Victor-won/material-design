@@ -204,7 +204,7 @@ async function onImport(event: Event) {
 .export-hero h2 {
   margin: 10px 0 5px;
   font-family: var(--font-display);
-  font-size: 27px;
+  font-size: 30px;
   font-weight: 440;
   letter-spacing: -0.025em;
   line-height: 1;
@@ -213,7 +213,7 @@ async function onImport(event: Event) {
 .export-hero p {
   margin: 0;
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
   line-height: 1.6;
 }
 
@@ -233,7 +233,7 @@ async function onImport(event: Event) {
   overflow: hidden;
   color: var(--ink);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -242,7 +242,7 @@ async function onImport(event: Event) {
   flex: 0 0 auto;
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 9px;
   letter-spacing: 0.05em;
 }
 
@@ -268,14 +268,14 @@ async function onImport(event: Event) {
 }
 
 .dpi-note strong {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 720;
 }
 
 .dpi-note span {
   margin-top: 2px;
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
   line-height: 1.45;
 }
 
@@ -339,14 +339,14 @@ async function onImport(event: Event) {
 }
 
 .export-copy strong {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 690;
 }
 
 .export-copy small {
   margin-top: 2px;
   color: var(--muted);
-  font-size: 7px;
+  font-size: 10px;
 }
 
 .export-card.is-primary .export-copy small {
@@ -406,14 +406,14 @@ async function onImport(event: Event) {
 
 .import-zone strong {
   color: var(--ink);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 680;
 }
 
 .import-zone small {
   margin-top: 2px;
   color: var(--muted-2);
-  font-size: 7px;
+  font-size: 10px;
 }
 
 .printer-warning {
@@ -429,7 +429,7 @@ async function onImport(event: Event) {
 .warning-index {
   color: var(--warning);
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.08em;
 }
@@ -437,7 +437,7 @@ async function onImport(event: Event) {
 .printer-warning p {
   margin: 0;
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
   line-height: 1.55;
 }
 </style>

@@ -41,7 +41,7 @@ defineProps<{
   padding-top: 2px;
   color: var(--accent);
   font-family: var(--font-display);
-  font-size: 11px;
+  font-size: 12.5px;
   font-style: italic;
   line-height: 1;
 }
@@ -53,7 +53,7 @@ defineProps<{
 
 .section-titles h3 {
   margin: 0;
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 730;
   letter-spacing: 0.02em;
   line-height: 1.25;
@@ -62,7 +62,7 @@ defineProps<{
 .section-titles p {
   margin: 3px 0 0;
   color: var(--muted-2);
-  font-size: 8px;
+  font-size: 10px;
   line-height: 1.4;
 }
 

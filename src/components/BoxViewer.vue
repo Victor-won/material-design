@@ -813,7 +813,7 @@ onBeforeUnmount(() => {
 .stage-eyebrow {
   color: rgba(255, 255, 255, 0.36);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -834,7 +834,7 @@ onBeforeUnmount(() => {
   gap: 8px;
   margin-top: 9px;
   color: rgba(255, 255, 255, 0.48);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.03em;
 }
 
@@ -848,7 +848,7 @@ onBeforeUnmount(() => {
 .stage-spec strong {
   color: rgba(255, 255, 255, 0.72);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.03em;
 }
@@ -874,7 +874,7 @@ onBeforeUnmount(() => {
   background: rgba(255, 255, 255, 0.04);
   color: rgba(255, 255, 255, 0.5);
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 9px;
   letter-spacing: 0.1em;
   backdrop-filter: blur(10px);
   transition:
@@ -896,7 +896,7 @@ onBeforeUnmount(() => {
   gap: 5px;
   color: rgba(255, 255, 255, 0.33);
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 9px;
   letter-spacing: 0.08em;
 }
 
@@ -942,7 +942,7 @@ onBeforeUnmount(() => {
   background: rgba(18, 18, 16, 0.84);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.22);
   color: var(--white);
-  font-size: 9px;
+  font-size: 11px;
   backdrop-filter: blur(12px);
   pointer-events: none;
 }
@@ -961,7 +961,7 @@ onBeforeUnmount(() => {
 .face-tooltip small {
   color: rgba(255, 255, 255, 0.36);
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 9px;
   text-transform: uppercase;
 }
 
@@ -988,7 +988,7 @@ onBeforeUnmount(() => {
   background: rgba(18, 18, 16, 0.55);
   box-shadow: 0 10px 34px rgba(0, 0, 0, 0.2);
   color: rgba(255, 255, 255, 0.58);
-  font-size: 8px;
+  font-size: 10px;
   backdrop-filter: blur(18px);
 }
 
@@ -1002,7 +1002,7 @@ onBeforeUnmount(() => {
   width: 34px;
   color: var(--white);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
   font-weight: 500;
   text-align: right;
 }
@@ -1029,7 +1029,7 @@ onBeforeUnmount(() => {
   height: 29px;
   border-radius: 999px;
   color: rgba(255, 255, 255, 0.46);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 620;
   transition:
     color 140ms ease,
@@ -1044,7 +1044,7 @@ onBeforeUnmount(() => {
 .view-button.is-iso {
   color: rgba(255, 255, 255, 0.76);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
 }
 
 .dock-divider {
@@ -1080,7 +1080,7 @@ onBeforeUnmount(() => {
   justify-content: space-between;
   color: rgba(255, 255, 255, 0.28);
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 9px;
   letter-spacing: 0.04em;
   pointer-events: none;
 }
@@ -1119,7 +1119,7 @@ onBeforeUnmount(() => {
 
 .stage-fallback p {
   margin: 0;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.6;
 }
 

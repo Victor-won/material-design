@@ -15,7 +15,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-ui);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -100,10 +100,38 @@ svg {
 .workspace {
   position: relative;
   display: grid;
-  grid-template-columns: var(--left) minmax(0, 1fr) var(--right);
   flex: 1;
   min-height: 0;
   overflow: hidden;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.workspace.layout-three {
+  grid-template-columns: var(--left) minmax(0, 1fr) var(--right);
+}
+
+.workspace.layout-two-net-stage {
+  grid-template-columns: var(--left) minmax(0, 1fr);
+}
+
+.workspace.layout-two-net-properties,
+.workspace.layout-two-stage-properties {
+  grid-template-columns: minmax(0, 1fr) var(--right);
+}
+
+.workspace.layout-one {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.workspace.layout-one .net-shell,
+.workspace.layout-one .property-shell {
+  border-right: 0;
+  border-left: 0;
+}
+
+.workspace.layout-one-properties .property-panel {
+  width: min(780px, 100%);
+  margin: 0 auto;
 }
 
 .net-shell,
@@ -142,7 +170,7 @@ svg {
   align-items: center;
   gap: 7px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 720;
   letter-spacing: 0.19em;
   line-height: 1;
@@ -203,7 +231,7 @@ svg {
   border-radius: 999px;
   background: var(--accent);
   color: var(--white);
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 760;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -233,7 +261,7 @@ svg {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.38);
   color: var(--ink-soft);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 680;
   letter-spacing: 0.02em;
   transition:
@@ -264,7 +292,7 @@ svg {
   gap: 10px;
   margin-bottom: 8px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 650;
   letter-spacing: 0.04em;
 }
@@ -272,7 +300,7 @@ svg {
 .field-label strong {
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 520;
   letter-spacing: 0;
 }
@@ -297,14 +325,14 @@ svg {
 .select-input {
   height: 36px;
   padding: 0 10px;
-  font-size: 12px;
+  font-size: 13.5px;
   font-weight: 580;
 }
 
 .textarea-input {
   min-height: 74px;
   padding: 9px 10px;
-  font-size: 12px;
+  font-size: 13.5px;
   line-height: 1.5;
   resize: vertical;
 }
@@ -349,74 +377,18 @@ input[type='range'] {
   }
 }
 
-@media (max-width: 1279px) {
-  .workspace {
-    grid-template-columns: minmax(0, 1fr) var(--right);
-  }
-
-  .stage-panel {
-    grid-column: 1;
-  }
-
-  .property-shell {
-    grid-column: 2;
-  }
-
-  .net-shell {
-    position: fixed;
-    top: var(--header-height);
-    bottom: 0;
-    left: 0;
-    z-index: 40;
-    width: min(390px, 92vw);
-    box-shadow: 26px 0 80px rgba(23, 20, 14, 0.24);
-    transform: translateX(-104%);
-    transition: transform 260ms var(--ease-out);
-  }
-
-  .net-shell.is-open {
-    transform: translateX(0);
-  }
-
-  .net-shell::after {
-    position: fixed;
-    inset: var(--header-height) 0 0 0;
-    z-index: -1;
-    background: rgba(18, 18, 16, 0.26);
-    content: '';
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 200ms ease;
-  }
-
-  .net-shell.is-open::after {
-    pointer-events: auto;
-    opacity: 1;
-  }
-}
-
 @media (max-width: 1023px) {
   .workspace {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 
-  .stage-panel {
-    grid-column: 1;
-  }
-
+  .net-shell,
   .property-shell {
-    position: fixed;
-    top: var(--header-height);
-    right: 0;
-    bottom: 0;
-    z-index: 42;
-    width: min(380px, 94vw);
-    box-shadow: -26px 0 80px rgba(23, 20, 14, 0.25);
-    transform: translateX(104%);
-    transition: transform 260ms var(--ease-out);
+    border-right: 0;
+    border-left: 0;
   }
 
-  .property-shell.is-open {
-    transform: translateX(0);
+  .property-panel {
+    width: 100%;
   }
 }

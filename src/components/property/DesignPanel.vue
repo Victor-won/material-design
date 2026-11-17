@@ -732,7 +732,7 @@ function applyPreset(presetId: string) {
 
 .scope-hint {
   color: var(--muted-2);
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .face-chips {
@@ -750,7 +750,7 @@ function applyPreset(presetId: string) {
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 620;
   transition:
     border-color 140ms ease,
@@ -793,14 +793,14 @@ function applyPreset(presetId: string) {
 }
 
 .override-banner strong {
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 }
 
 .override-banner p {
   margin: 3px 0 0;
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
   line-height: 1.45;
 }
 
@@ -810,7 +810,7 @@ function applyPreset(presetId: string) {
   justify-content: space-between;
   margin-top: 9px;
   color: var(--success);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 640;
 }
 
@@ -822,7 +822,7 @@ function applyPreset(presetId: string) {
 .text-action {
   padding: 0;
   color: var(--accent);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 670;
 }
 
@@ -877,7 +877,7 @@ function applyPreset(presetId: string) {
   display: block;
   margin-bottom: 7px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 640;
 }
 
@@ -892,7 +892,7 @@ function applyPreset(presetId: string) {
   border: 1px solid var(--line);
   border-radius: 999px;
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 620;
 }
 
@@ -918,7 +918,7 @@ function applyPreset(presetId: string) {
   border: 1px solid transparent;
   border-radius: 5px;
   color: var(--muted-2);
-  font-size: 6px;
+  font-size: 9px;
 }
 
 .pattern-tile:hover {
@@ -941,7 +941,7 @@ function applyPreset(presetId: string) {
   border-radius: 3px;
   background-color: #f5f0e5;
   color: var(--muted-2);
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .pattern-tile.is-none .pattern-swatch {
@@ -958,7 +958,7 @@ function applyPreset(presetId: string) {
 
 .pattern-color > span {
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .upload-zone {
@@ -990,13 +990,13 @@ function applyPreset(presetId: string) {
 
 .upload-zone strong {
   margin-top: 3px;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 }
 
 .upload-zone small {
   color: var(--muted-2);
-  font-size: 7px;
+  font-size: 10px;
 }
 
 .image-card {
@@ -1115,7 +1115,7 @@ function applyPreset(presetId: string) {
   min-width: 0;
   flex: 1;
   overflow: hidden;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 620;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1149,12 +1149,12 @@ function applyPreset(presetId: string) {
 .empty-layers p {
   margin: 6px 0 2px;
   color: var(--ink);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 650;
 }
 
 .empty-layers span {
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .layer-editor {
@@ -1172,7 +1172,7 @@ function applyPreset(presetId: string) {
   align-items: center;
   justify-content: space-between;
   color: var(--ink);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -1199,7 +1199,7 @@ function applyPreset(presetId: string) {
   display: grid;
   gap: 5px;
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 640;
 }
 
@@ -1211,7 +1211,7 @@ function applyPreset(presetId: string) {
 
 .align-field > span {
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 640;
 }
 
@@ -1273,13 +1273,13 @@ function applyPreset(presetId: string) {
 
 .template-preview > span {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1;
 }
 
 .template-preview small {
   font-family: var(--font-mono);
-  font-size: 5px;
+  font-size: 8px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -1291,13 +1291,13 @@ function applyPreset(presetId: string) {
 }
 
 .template-copy strong {
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 680;
 }
 
 .template-copy small {
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 6px;
+  font-size: 9px;
 }
 </style>

@@ -35,7 +35,7 @@ function textureUrl(panel: NetPanel, project: Project, revision: number): string
   const key = `${panel.faceId}:${w}x${h}:${revision}`
   const cached = dataUrlCache.get(key)
   if (cached) return cached
-  const url = getFaceTextureDataUrl(panel.faceId, w, h, project, revision, 760)
+  const url = getFaceTextureDataUrl(panel.faceId, w, h, project, revision, 2000)
   if (dataUrlCache.size > 180) {
     const first = dataUrlCache.keys().next().value
     if (first) dataUrlCache.delete(first)
@@ -135,7 +135,7 @@ export function buildNetSvg(
           <path d="${path}" fill="none" stroke="#1b1813" stroke-width="0.55" stroke-opacity="0.58"/>
           ${
             selectedFace && panel.faceId === selectedFace
-              ? `<path d="${path}" fill="#ff4d1f" fill-opacity="0.075" stroke="#ff4d1f" stroke-width="1.65" stroke-linejoin="round" data-selected="true"/>`
+              ? `<path d="${path}" fill="#ff4d1f" fill-opacity="0.075" stroke="#ff4d1f" stroke-width="1.65" stroke-linejoin="round" vector-effect="non-scaling-stroke" data-selected="true"/>`
               : ''
           }
         </g>
@@ -145,7 +145,7 @@ export function buildNetSvg(
       hitMarkup.push(
         `<g data-face="${panel.faceId}" class="pf-face-hit" tabindex="0" role="button" aria-label="${escapeXml(panel.faceId)}">
           <path d="${path}" fill="transparent" stroke="none"/>
-          <path class="pf-hover-line" d="${path}" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-opacity="0" pointer-events="none"/>
+          <path class="pf-hover-line" d="${path}" fill="none" stroke="#ffffff" stroke-width="1.4" stroke-opacity="0" vector-effect="non-scaling-stroke" pointer-events="none"/>
         </g>`,
       )
     }
@@ -175,7 +175,7 @@ export function buildNetSvg(
   const labelMarkup = showAnnotations
     ? model.net.labels
         .map(item => {
-          const size = (item.size ?? 4) * labelScale
+          const size = (item.size ?? 5) * labelScale
           return `<text x="${item.x}" y="${item.y}" text-anchor="middle" font-family="'Manrope Variable', 'PingFang SC', sans-serif" font-size="${size.toFixed(2)}" font-weight="650" letter-spacing="0.28" fill="${item.muted ? '#776f61' : '#2a251e'}" paint-order="stroke" stroke="#f7f3e9" stroke-width="1.2" stroke-opacity="0.7">${escapeXml(item.text)}</text>`
         })
         .join('')
@@ -184,7 +184,7 @@ export function buildNetSvg(
   const sectionMarkup = model.net.sections
     .map(
       section =>
-        `<text x="${section.x}" y="${section.y}" text-anchor="middle" font-family="'Newsreader Variable', Georgia, serif" font-size="${(8 * labelScale).toFixed(2)}" font-style="italic" fill="#ff4d1f">${escapeXml(section.label)}</text>`,
+        `<text x="${section.x}" y="${section.y}" text-anchor="middle" font-family="'Newsreader Variable', Georgia, serif" font-size="${(9 * labelScale).toFixed(2)}" font-style="italic" fill="#ff4d1f">${escapeXml(section.label)}</text>`,
     )
     .join('')
 
@@ -201,7 +201,7 @@ export function buildNetSvg(
                 <line x1="${dim.x1}" y1="${dim.y1}" x2="${dim.x2}" y2="${dim.y2}" stroke="#847a69" stroke-width="0.45"/>
                 <line x1="${dim.x1}" y1="${dim.y1 - tick}" x2="${dim.x1}" y2="${dim.y1 + tick}" stroke="#847a69" stroke-width="0.45"/>
                 <line x1="${dim.x2}" y1="${dim.y2 - tick}" x2="${dim.x2}" y2="${dim.y2 + tick}" stroke="#847a69" stroke-width="0.45"/>
-                <text x="${midX}" y="${midY - 2.4}" text-anchor="middle" font-family="'Manrope Variable', sans-serif" font-size="${(4.1 * labelScale).toFixed(2)}" font-weight="650" letter-spacing="0.15" fill="#675f52" paint-order="stroke" stroke="#f7f3e9" stroke-width="1.4">${escapeXml(dim.label)}</text>
+                <text x="${midX}" y="${midY - 2.4}" text-anchor="middle" font-family="'Manrope Variable', sans-serif" font-size="${(4.5 * labelScale).toFixed(2)}" font-weight="650" letter-spacing="0.15" fill="#675f52" paint-order="stroke" stroke="#f7f3e9" stroke-width="1.4">${escapeXml(dim.label)}</text>
               </g>
             `
           }
@@ -210,7 +210,7 @@ export function buildNetSvg(
               <line x1="${dim.x1}" y1="${dim.y1}" x2="${dim.x2}" y2="${dim.y2}" stroke="#847a69" stroke-width="0.45"/>
               <line x1="${dim.x1 - tick}" y1="${dim.y1}" x2="${dim.x1 + tick}" y2="${dim.y1}" stroke="#847a69" stroke-width="0.45"/>
               <line x1="${dim.x2 - tick}" y1="${dim.y2}" x2="${dim.x2 + tick}" y2="${dim.y2}" stroke="#847a69" stroke-width="0.45"/>
-              <text x="${midX + 2.5}" y="${midY}" text-anchor="start" font-family="'Manrope Variable', sans-serif" font-size="${(4.1 * labelScale).toFixed(2)}" font-weight="650" letter-spacing="0.15" fill="#675f52" paint-order="stroke" stroke="#f7f3e9" stroke-width="1.4">${escapeXml(dim.label)}</text>
+              <text x="${midX + 2.5}" y="${midY}" text-anchor="start" font-family="'Manrope Variable', sans-serif" font-size="${(4.5 * labelScale).toFixed(2)}" font-weight="650" letter-spacing="0.15" fill="#675f52" paint-order="stroke" stroke="#f7f3e9" stroke-width="1.4">${escapeXml(dim.label)}</text>
             </g>
           `
         })
@@ -229,9 +229,9 @@ export function buildNetSvg(
     ? `<rect x="${minX}" y="${minY}" width="${width}" height="${height}" fill="url(#pf-tech-grid)"/>`
     : ''
 
-  const widthAttr = forExport ? `${width.toFixed(2)}mm` : width.toFixed(2)
-  const heightAttr = forExport ? `${height.toFixed(2)}mm` : height.toFixed(2)
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width.toFixed(2)} ${height.toFixed(2)}" width="${widthAttr}" height="${heightAttr}" role="img" aria-label="纸盒展开刀模图">
+  const widthAttr = forExport ? `${width.toFixed(2)}mm` : '100%'
+  const heightAttr = forExport ? `${height.toFixed(2)}mm` : '100%'
+  return `<svg xmlns="http://www.w3.org/2000/svg" data-net-width="${width.toFixed(2)}" data-net-height="${height.toFixed(2)}" viewBox="0 0 ${width.toFixed(2)} ${height.toFixed(2)}" width="${widthAttr}" height="${heightAttr}" role="img" aria-label="纸盒展开刀模图">
     <title>${escapeXml(project.name)} — ${escapeXml(model.name)}</title>
     ${style}
     <defs>${defs.join('')}</defs>

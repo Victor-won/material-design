@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { Maximize2, Ruler, ScanLine, X, ZoomIn, ZoomOut } from '@lucide/vue'
+import { Maximize2, Ruler, ScanLine, ZoomIn, ZoomOut } from '@lucide/vue'
 import { useDesignerStore } from '@/stores/designer'
 import { buildNetSvg } from '@/core/netSvg'
 import { FACE_LABELS } from '@/core/materials'
@@ -28,7 +28,6 @@ const svgMarkup = computed(() =>
 const wrapperStyle = computed(() => ({
   width: `${natural.value.w * natural.value.scale}px`,
   height: `${natural.value.h * natural.value.scale}px`,
-  transform: `translate(calc(-50% + ${pan.value.x}px), calc(-50% + ${pan.value.y}px)) scale(${zoom.value})`,
 }))
 
 const selectedLabel = computed(() => FACE_LABELS[store.selectedFace].zh)
@@ -44,15 +43,32 @@ const lastNatural = { w: 0, h: 0 }
 function measure() {
   const el = host.value?.querySelector('svg')
   if (!el) return
-  const w = Number(el.getAttribute('width')) || 800
-  const h = Number(el.getAttribute('height')) || 500
+  const w = Number(el.getAttribute('data-net-width')) || 800
+  const h = Number(el.getAttribute('data-net-height')) || 500
   const changed = Math.abs(w - lastNatural.w) > 0.5 || Math.abs(h - lastNatural.h) > 0.5
   lastNatural.w = w
   lastNatural.h = h
   natural.value = { w, h, scale: natural.value.scale }
   if (!fitted.value || (changed && zoom.value === 1)) {
     fit()
+  } else {
+    applyViewBox()
   }
+}
+
+function applyViewBox() {
+  const el = host.value?.querySelector('svg')
+  if (!el) return
+  const wrapW = natural.value.w * natural.value.scale
+  const wrapH = natural.value.h * natural.value.scale
+  if (wrapW < 1 || wrapH < 1) return
+  const visibleW = natural.value.w / zoom.value
+  const visibleH = natural.value.h / zoom.value
+  const centerX = natural.value.w / 2 - (pan.value.x / wrapW) * visibleW
+  const centerY = natural.value.h / 2 - (pan.value.y / wrapH) * visibleH
+  el.setAttribute('viewBox', `${(centerX - visibleW / 2).toFixed(3)} ${(centerY - visibleH / 2).toFixed(3)} ${visibleW.toFixed(3)} ${visibleH.toFixed(3)}`)
+  el.setAttribute('width', '100%')
+  el.setAttribute('height', '100%')
 }
 
 function fit() {
@@ -65,10 +81,12 @@ function fit() {
   zoom.value = 1
   pan.value = { x: 0, y: 0 }
   fitted.value = true
+  applyViewBox()
 }
 
 function zoomBy(factor: number) {
   zoom.value = Math.min(4, Math.max(0.25, zoom.value * factor))
+  applyViewBox()
 }
 
 function onWheel(event: WheelEvent) {
@@ -110,6 +128,7 @@ function onPointerMove(event: PointerEvent) {
     pan.value = { x: pan.value.x + dx, y: pan.value.y + dy }
     lastX = event.clientX
     lastY = event.clientY
+    applyViewBox()
     return
   }
   const target = (event.target as Element).closest('[data-face]')
@@ -154,7 +173,18 @@ function onLeave() {
 watch(svgMarkup, async () => {
   await nextTick()
   measure()
+  applyViewBox()
 })
+
+watch(
+  () => store.ui.showNet,
+  async visible => {
+    if (!visible) return
+    await nextTick()
+    measure()
+    fit()
+  },
+)
 
 onMounted(async () => {
   await nextTick()
@@ -170,6 +200,7 @@ onMounted(async () => {
         0.1,
         Math.min(availableW / natural.value.w, availableH / natural.value.h),
       )
+      applyViewBox()
     }
   })
   if (viewport.value) ro.observe(viewport.value)
@@ -190,13 +221,6 @@ onBeforeUnmount(() => {
           <span class="net-meta">{{ netMeta }}</span>
         </div>
       </div>
-      <button
-        class="close-drawer"
-        aria-label="关闭展开图"
-        @click="store.ui.leftOpen = false"
-      >
-        <X :size="16" />
-      </button>
       <div class="net-tools">
         <button class="icon-button" title="缩小" aria-label="缩小" @click="zoomBy(0.86)">
           <ZoomOut :size="15" :stroke-width="1.8" />
@@ -295,25 +319,15 @@ onBeforeUnmount(() => {
 }
 
 .display-title {
-  font-size: 30px;
+  font-size: 32px;
   white-space: nowrap;
 }
 
 .net-meta {
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.02em;
-}
-
-.close-drawer {
-  display: none;
-  width: 30px;
-  height: 30px;
-  place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  color: var(--muted);
 }
 
 .net-tools {
@@ -335,7 +349,7 @@ onBeforeUnmount(() => {
   min-width: 34px;
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 8px;
+  font-size: 10px;
   text-align: center;
 }
 
@@ -381,15 +395,15 @@ onBeforeUnmount(() => {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform-origin: center center;
-  filter: drop-shadow(0 14px 32px rgba(79, 65, 45, 0.1));
-  will-change: transform;
+  transform: translate(-50%, -50%);
 }
 
 .net-svg-wrap :deep(svg) {
   width: 100%;
   height: 100%;
   overflow: visible;
+  shape-rendering: geometricPrecision;
+  image-rendering: auto;
 }
 
 .net-hover-chip {
@@ -404,7 +418,7 @@ onBeforeUnmount(() => {
   border-radius: 6px;
   background: rgba(251, 248, 241, 0.88);
   color: var(--ink);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 650;
   opacity: 0;
   transform: translateY(3px);
@@ -431,7 +445,7 @@ onBeforeUnmount(() => {
   margin-left: 2px;
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
   text-transform: uppercase;
 }
 
@@ -447,14 +461,14 @@ onBeforeUnmount(() => {
   border-radius: 6px;
   background: rgba(251, 248, 241, 0.86);
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.04em;
   backdrop-filter: blur(8px);
 }
 
 .net-selection strong {
   color: var(--ink);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 680;
 }
 
@@ -462,7 +476,7 @@ onBeforeUnmount(() => {
   padding-left: 7px;
   border-left: 1px solid var(--line);
   color: var(--accent);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 650;
 }
 
@@ -481,7 +495,7 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 13px;
   color: var(--muted);
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .legend span {
@@ -512,7 +526,7 @@ onBeforeUnmount(() => {
 .net-note {
   color: var(--muted-2);
   font-family: var(--font-mono);
-  font-size: 7px;
+  font-size: 10px;
   letter-spacing: 0.08em;
 }
 
@@ -522,7 +536,7 @@ onBeforeUnmount(() => {
   }
 
   .display-title {
-    font-size: 26px;
+    font-size: 28px;
   }
 
   .net-meta {
@@ -540,21 +554,6 @@ onBeforeUnmount(() => {
 
   .zoom-value {
     min-width: 29px;
-  }
-}
-
-@media (max-width: 1279px) {
-  .close-drawer {
-    display: grid;
-  }
-
-  .net-header {
-    padding-top: 16px;
-  }
-
-  .net-tools {
-    flex-wrap: wrap;
-    justify-content: flex-end;
   }
 }
 </style>

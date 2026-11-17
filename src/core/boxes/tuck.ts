@@ -136,12 +136,12 @@ export function buildTuckBox(ctx: BuildContext): NetBuildResult {
   ]
 
   const labels = [
-    label(frontX1 + L / 2, bodyTop + H / 2 - 2, 'FRONT', 5),
-    label(xGlue + L / 2, bodyTop + H / 2 - 2, 'BACK', 5, true),
-    label(rightX1 + W / 2, bodyTop + H / 2 - 2, 'RIGHT', 4, true),
-    label(leftX1 + W / 2, bodyTop + H / 2 - 2, 'LEFT', 4, true),
-    label(frontX1 + L / 2, bodyTop - tuck / 2, 'TUCK / TOP', 3.6, true),
-    label(xGlue + L / 2, bodyBottom + tuck / 2, 'TUCK / BOTTOM', 3.6, true),
+    label(frontX1 + L / 2, bodyTop + 9, 'FRONT', 4.2),
+    label(xGlue + L / 2, bodyTop + 9, 'BACK', 4.2, true),
+    label(rightX1 + W / 2, bodyTop + 9, 'RIGHT', 3.7, true),
+    label(leftX1 + W / 2, bodyTop + 9, 'LEFT', 3.7, true),
+    label(frontX1 + L / 2, bodyTop - tuck + 9, 'TUCK / TOP', 3.4, true),
+    label(xGlue + L / 2, bodyBottom + 9, 'TUCK / BOTTOM', 3.4, true),
   ]
 
   const dimensions = [

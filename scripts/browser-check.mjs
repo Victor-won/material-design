@@ -1,9 +1,12 @@
 import { chromium } from 'playwright-core'
 import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
 import crypto from 'node:crypto'
 const browser = await chromium.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: true })
 const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, acceptDownloads: true })
 const page = await context.newPage()
+const artifactDir = fs.mkdtempSync(path.join(os.tmpdir(), 'paperform-verify-'))
 const errors = []
 page.on('console', m => { if (m.type() === 'error') errors.push(m.text()) })
 page.on('pageerror', e => errors.push('PAGEERROR: ' + e.message))
@@ -14,7 +17,7 @@ await page.waitForTimeout(1400)
 assert(await page.locator('[data-test="net-panel"]').isVisible(), 'net panel visible')
 assert(await page.locator('[data-test="stage-panel"]').isVisible(), 'stage visible')
 assert(await page.locator('[data-test="property-panel"]').isVisible(), 'property visible')
-await page.screenshot({ path: 'docs/screenshots/final-1440.png', fullPage: true })
+await page.screenshot({ path: path.join(artifactDir, '1440.png'), fullPage: true })
 
 // 1280 layout
 await page.setViewportSize({ width: 1280, height: 800 })
@@ -22,9 +25,46 @@ await page.waitForTimeout(600)
 const overflow1280 = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, client: document.documentElement.clientWidth }))
 console.log('1280 OVERFLOW', overflow1280)
 assert(overflow1280.scroll === overflow1280.client, 'no horizontal overflow at 1280')
-await page.screenshot({ path: 'docs/screenshots/final-1280.png', fullPage: true })
+await page.screenshot({ path: path.join(artifactDir, '1280.png'), fullPage: true })
 await page.setViewportSize({ width: 1440, height: 900 })
 await page.waitForTimeout(500)
+
+// Workspace view modes: 3 -> 2 -> 1 -> 2 -> 1 -> 2 -> 3
+const workspace = page.locator('[data-test="workspace"]')
+const workspaceClass = async () => (await workspace.getAttribute('class')) ?? ''
+assert((await workspaceClass()).includes('layout-three'), 'starts in three-column layout')
+await page.getByRole('button', { name: '切换属性面板' }).click()
+await page.waitForTimeout(350)
+assert((await workspaceClass()).includes('layout-two-net-stage'), 'two-column net + 3d')
+await page.getByRole('button', { name: '切换 3D 视图' }).click()
+await page.waitForTimeout(350)
+assert((await workspaceClass()).includes('layout-one-net'), 'single 2d view')
+await page.getByRole('button', { name: '切换展开图视图' }).click()
+await page.waitForTimeout(250)
+assert((await workspaceClass()).includes('layout-one-net'), 'cannot hide the last view')
+await page.getByRole('button', { name: '切换 3D 视图' }).click()
+await page.waitForTimeout(350)
+await page.getByRole('button', { name: '切换展开图视图' }).click()
+await page.waitForTimeout(350)
+assert((await workspaceClass()).includes('layout-one-stage'), 'single 3d view')
+await page.getByRole('button', { name: '切换属性面板' }).click()
+await page.waitForTimeout(350)
+assert((await workspaceClass()).includes('layout-two-stage-properties'), 'two-column 3d + properties')
+await page.getByRole('button', { name: '切换展开图视图' }).click()
+await page.waitForTimeout(350)
+assert((await workspaceClass()).includes('layout-three'), 'back to three columns')
+console.log('LAYOUT MODES OK')
+
+// SVG viewBox zoom keeps artwork crisp instead of bitmap-scaling the panel.
+const viewBoxBefore = await page.locator('.net-svg-wrap svg').getAttribute('viewBox')
+await page.getByRole('button', { name: '放大' }).click()
+await page.getByRole('button', { name: '放大' }).click()
+await page.waitForTimeout(350)
+const viewBoxAfter = await page.locator('.net-svg-wrap svg').getAttribute('viewBox')
+assert(viewBoxBefore !== viewBoxAfter, 'zoom updates svg viewBox')
+await page.getByRole('button', { name: '适配画布' }).click()
+await page.waitForTimeout(300)
+console.log('SVG ZOOM OK')
 
 // Change dimension and undo/redo
 const lengthInput = page.locator('.value-input').first()
@@ -57,7 +97,7 @@ await hex.dispatchEvent('change')
 await page.waitForTimeout(500)
 await page.getByRole('button', { name: '添加文字' }).click()
 await page.waitForTimeout(500)
-await page.screenshot({ path: 'docs/screenshots/final-design.png', fullPage: true })
+await page.screenshot({ path: path.join(artifactDir, 'design.png'), fullPage: true })
 assert((await page.locator('.layer-row').count()) >= 4, 'layer added')
 console.log('FACE DESIGN OK')
 
@@ -93,12 +133,12 @@ async function grab(name, trigger) {
   const dl = page.waitForEvent('download', { timeout: 180000 })
   await trigger()
   const download = await dl
-  const path = `docs/screenshots/final-${name}`
-  await download.saveAs(path)
-  const size = fs.statSync(path).size
+  const target = path.join(artifactDir, name)
+  await download.saveAs(target)
+  const size = fs.statSync(target).size
   assert(size > 500, name + ' non-empty')
   console.log('EXPORT', name, size, download.suggestedFilename())
-  return path
+  return target
 }
 const pdf = await grab('print.pdf', () => page.getByRole('button', { name: /印刷 PDF/ }).click())
 const png = await grab('dieline.png', () => page.getByRole('button', { name: /高清 PNG/ }).click())
@@ -125,7 +165,7 @@ assert((await page.locator('.stage-top-left').innerText()).includes('Mailer'), '
 await page.getByRole('button', { name: /天地盖/ }).first().click()
 await page.waitForTimeout(900)
 assert((await page.locator('.stage-top-left').innerText()).includes('Lid'), 'lidbase stage')
-await page.screenshot({ path: 'docs/screenshots/final-lidbase.png', fullPage: true })
+await page.screenshot({ path: path.join(artifactDir, 'lidbase.png'), fullPage: true })
 
 console.log('CONSOLE ERRORS', JSON.stringify(errors))
 assert(errors.length === 0, 'no console errors')

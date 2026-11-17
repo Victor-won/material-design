@@ -46,7 +46,7 @@ const emit = defineEmits<{
   padding: 0 6px;
   border-radius: 6px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 670;
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -68,7 +68,7 @@ const emit = defineEmits<{
 
 .segmented.is-compact .segment {
   height: 24px;
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .segmented.is-disabled {

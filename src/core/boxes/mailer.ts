@@ -94,10 +94,10 @@ export function buildMailerBox(ctx: BuildContext): NetBuildResult {
   ]
 
   const labels = [
-    label(baseX + L / 2, lidTopY + W / 2, 'LID / TOP', 6),
-    label(baseX + L / 2, baseY + W / 2, 'BODY / BOTTOM', 5, true),
-    label(baseX + L / 2, frontWallY + bodyH / 2, 'FRONT', 5),
-    label(baseX + L / 2, backWallY + bodyH / 2, 'BACK', 5, true),
+    label(baseX + L / 2, lidTopY + 9, 'LID / TOP', 4.6),
+    label(baseX + L / 2, baseY + 9, 'BODY / BOTTOM', 4.2, true),
+    label(baseX + L / 2, frontWallY + 9, 'FRONT', 4.2),
+    label(baseX + L / 2, backWallY + 9, 'BACK', 4.2, true),
   ]
 
   const dimensions = [

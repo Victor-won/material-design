@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Download, PanelLeft, Plus, Redo2, Undo2 } from '@lucide/vue'
+import { Download, Plus, Redo2, Undo2 } from '@lucide/vue'
 import { useDesignerStore } from '@/stores/designer'
+import ViewLayoutControl from './ViewLayoutControl.vue'
 
 const store = useDesignerStore()
 
@@ -25,20 +26,13 @@ function onNameChange(event: Event) {
 
 function openExport() {
   store.setTab('export')
-  if (window.innerWidth < 1024) store.ui.rightOpen = true
-}
-
-function toggleNetDrawer() {
-  store.ui.leftOpen = !store.ui.leftOpen
+  store.showPropertiesPanel()
 }
 </script>
 
 <template>
   <header class="app-header">
     <div class="brand-block">
-      <button class="net-trigger" aria-label="打开展开图" title="展开图" @click="toggleNetDrawer">
-        <PanelLeft :size="17" :stroke-width="1.7" />
-      </button>
       <a class="brand" href="#" aria-label="PAPERFORM 首页" @click.prevent>
         <span class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 32 32" fill="none">
@@ -73,6 +67,8 @@ function toggleNetDrawer() {
     </div>
 
     <div class="header-actions">
+      <ViewLayoutControl />
+      <span class="header-divider layout-divider" />
       <button
         class="icon-button header-icon"
         :disabled="!store.canUndo"
@@ -109,7 +105,8 @@ function toggleNetDrawer() {
   position: relative;
   z-index: 60;
   display: grid;
-  grid-template-columns: minmax(250px, 1fr) minmax(300px, auto) minmax(300px, 1fr);
+  grid-template-columns: auto minmax(180px, 1fr) auto;
+  column-gap: 20px;
   height: var(--header-height);
   flex: 0 0 var(--header-height);
   align-items: center;
@@ -124,16 +121,6 @@ function toggleNetDrawer() {
   min-width: 0;
   align-items: center;
   gap: 10px;
-}
-
-.net-trigger {
-  display: none;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 50%;
-  color: rgba(255, 255, 255, 0.72);
 }
 
 .brand {
@@ -163,7 +150,7 @@ function toggleNetDrawer() {
 }
 
 .brand-words strong {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 760;
   letter-spacing: 0.17em;
 }
@@ -171,7 +158,7 @@ function toggleNetDrawer() {
 .brand-words small {
   margin-top: 6px;
   color: rgba(255, 255, 255, 0.42);
-  font-size: 7px;
+  font-size: 10px;
   font-weight: 620;
   letter-spacing: 0.14em;
 }
@@ -187,7 +174,7 @@ function toggleNetDrawer() {
 .project-index {
   color: rgba(255, 255, 255, 0.33);
   font-family: var(--font-mono);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.12em;
   white-space: nowrap;
 }
@@ -207,7 +194,7 @@ function toggleNetDrawer() {
   background: transparent;
   color: var(--white);
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 440;
   letter-spacing: 0.01em;
   text-align: center;
@@ -224,7 +211,7 @@ function toggleNetDrawer() {
   right: -2px;
   bottom: -8px;
   color: transparent;
-  font-size: 6px;
+  font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.16em;
   pointer-events: none;
@@ -240,7 +227,7 @@ function toggleNetDrawer() {
   align-items: center;
   gap: 6px;
   color: rgba(255, 255, 255, 0.34);
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.03em;
   white-space: nowrap;
@@ -277,6 +264,16 @@ function toggleNetDrawer() {
   align-items: center;
   justify-content: flex-end;
   gap: 4px;
+  flex-shrink: 0;
+}
+
+.header-actions > * {
+  flex-shrink: 0;
+}
+
+.new-button,
+.export-button {
+  white-space: nowrap;
 }
 
 .header-icon {
@@ -303,7 +300,7 @@ function toggleNetDrawer() {
   padding: 0 12px;
   border-radius: 999px;
   color: rgba(255, 255, 255, 0.56);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 650;
   transition:
     background 160ms ease,
@@ -325,7 +322,7 @@ function toggleNetDrawer() {
   border-radius: 999px;
   background: var(--accent);
   color: var(--white);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 780;
   letter-spacing: 0.11em;
   transition:
@@ -343,20 +340,22 @@ function toggleNetDrawer() {
   transform: translateY(1px);
 }
 
-@media (max-width: 1279px) {
+@media (max-width: 1439px) {
   .app-header {
-    grid-template-columns: minmax(190px, 1fr) minmax(240px, auto) minmax(240px, 1fr);
     padding-left: 12px;
   }
 
-  .net-trigger {
-    display: grid;
-  }
-
-  .project-index {
+  .project-index,
+  .save-state {
     display: none;
   }
 
+  .layout-divider {
+    margin-left: 4px;
+  }
+}
+
+@media (max-width: 1279px) {
   .brand-words small {
     display: none;
   }
@@ -380,6 +379,10 @@ function toggleNetDrawer() {
     padding: 0;
     justify-content: center;
   }
+
+  .app-header {
+    column-gap: 12px;
+  }
 }
 
 @media (max-width: 760px) {
@@ -400,7 +403,7 @@ function toggleNetDrawer() {
   .project-name {
     width: 100%;
     text-align: left;
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .header-icon,
