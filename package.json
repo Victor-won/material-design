@@ -12,7 +12,8 @@
     "typecheck": "vue-tsc --noEmit",
     "check": "pnpm test && pnpm typecheck && pnpm build",
     "e2e": "node scripts/browser-check.mjs",
-    "capture": "node scripts/capture.mjs"
+    "capture": "node scripts/capture.mjs",
+    "deploy": "gh-pages -d dist"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [
@@ -23,6 +24,7 @@
     "@fontsource-variable/manrope": "^5.3.0",
     "@fontsource-variable/newsreader": "^5.3.0",
     "@lucide/vue": "^1.73.0",
+    "gh-pages": "^6.3.0",
     "jspdf": "^4.2.1",
     "pinia": "^4.1.0",
     "three": "^0.187.0",
